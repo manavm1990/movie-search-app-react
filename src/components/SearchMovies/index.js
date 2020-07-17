@@ -1,16 +1,18 @@
 import React from "react";
 
-import dotenv from "dotenv";
+import apiRepo from "api";
 
 import styles from "./SearchMovies.module.css"; // Import css modules stylesheet as styles
 
-dotenv.config();
+const api = apiRepo();
 
 const searchMovies = async (event) => {
   event.preventDefault();
 
-  const url = `https://api.themoviedb.org/3/movie/550?api_key=${process.env.REACT_APP_API_KEY}`;
-  console.log(url);
+  const query = "Jurassic Park";
+
+  const url = `https://api.themoviedb.org/3/movie/550?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`;
+  console.log(url, api.query);
 };
 
 export const SearchMovies = () => (
