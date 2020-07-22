@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import apiRepo from "api";
 
@@ -6,28 +6,34 @@ import styles from "./SearchMovies.module.css"; // Import css modules stylesheet
 
 const api = apiRepo();
 
-const searchMovies = async (event) => {
-  event.preventDefault();
+export const SearchMovies = () => {
+  const [query, setQuery] = useState("");
 
-  const query = "Jurassic Park";
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
 
-  const url = `https://api.themoviedb.org/3/movie/550?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`;
-  console.log(url, api.query);
+  const searchMovies = async (event) => {
+    event.preventDefault();
+
+    console.log(await api.index(query));
+  };
+
+  return (
+    <form className={styles.form} onSubmit={searchMovies}>
+      <label htmlFor="query" className={styles.label}>
+        Movie Name
+      </label>
+      <input
+        type="search"
+        id="query"
+        placeholder="i.e. Jurassic Park"
+        className={styles.input}
+        onChange={handleInputChange}
+      />
+      <button className={styles.button} type="submit">
+        Search
+      </button>
+    </form>
+  );
 };
-
-export const SearchMovies = () => (
-  <form className={styles.form} onSubmit={searchMovies}>
-    <label htmlFor="query" className={styles.label}>
-      Movie Name
-    </label>
-    <input
-      type="search"
-      id="query"
-      placeholder="i.e. Jurassic Park"
-      className={styles.input}
-    />
-    <button className={styles.button} type="submit">
-      Search
-    </button>
-  </form>
-);
