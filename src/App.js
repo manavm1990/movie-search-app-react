@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 
-import { CardList, Search } from "./components";
-
-import apiRepo from "api";
-
-const api = apiRepo();
+import { Cards, Search } from "./components";
 
 export const App = () => {
   const [movies, setMovies] = useState([]);
@@ -15,7 +11,7 @@ export const App = () => {
     <div className="container">
       <h1 className="title">React Movie Search</h1>
       <Search onMoviesChange={handleMoviesChange} />
-      <CardList movies={movies} />
+      <Cards movies={movies} />
     </div>
   );
 };

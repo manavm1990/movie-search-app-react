@@ -1,2 +1,2 @@
-export { CardList } from "./CardList";
+export { Cards } from "./Cards";
 export { SearchMovies as Search } from "./SearchMovies";
