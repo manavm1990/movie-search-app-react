@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import apiRepo from "api";
 
@@ -6,7 +7,7 @@ import styles from "./SearchMovies.module.css"; // Import css modules stylesheet
 
 const api = apiRepo();
 
-export const SearchMovies = () => {
+export const SearchMovies = ({ onMoviesChange }) => {
   const [query, setQuery] = useState("");
 
   const handleInputChange = (e) => {
@@ -16,7 +17,8 @@ export const SearchMovies = () => {
   const searchMovies = async (event) => {
     event.preventDefault();
 
-    console.log(await api.index(query));
+    const { results } = await api.index(query);
+    onMoviesChange(results);
   };
 
   return (
@@ -36,4 +38,7 @@ export const SearchMovies = () => {
       </button>
     </form>
   );
+};
+SearchMovies.propTypes = {
+  onMoviesChange: PropTypes.func,
 };
